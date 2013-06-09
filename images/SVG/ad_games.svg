@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="480"
+   height="320"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="ad_games.svg"
+   inkscape:export-filename="/home/david/data/www/game_2D_dev/images/ad_games.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3910"
+       x="-0.21595541"
+       width="1.4319108"
+       y="-0.21604461"
+       height="1.4320892">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="13.620938"
+         id="feGaussianBlur3912" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.7810252"
+     inkscape:cx="242.12137"
+     inkscape:cy="166.61873"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="8px"
+       spacingy="8px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-732.36215)"
+     sodipodi:insensitive="true"
+     style="display:inline">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.62400007;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2987"
+       width="477.37573"
+       height="317.37573"
+       x="1.3121265"
+       y="733.67432"
+       ry="0" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer">
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ccffff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.53393668000000005;stroke-dasharray:none;filter:url(#filter3910)"
+       d="M 164.03125 68.3125 L 164.03125 196.3125 L 219.40625 196.3125 L 219.40625 219.625 L 315.40625 219.625 L 315.40625 91.625 L 260.03125 91.625 L 260.03125 68.3125 L 164.03125 68.3125 z M 196.03125 100.3125 L 219.40625 100.3125 L 219.40625 123.625 L 283.40625 123.625 L 283.40625 187.625 L 260.03125 187.625 L 260.03125 164.3125 L 196.03125 164.3125 L 196.03125 100.3125 z "
+       id="path3773" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3760"
+       d="m 219.40318,219.63167 0,-32 64,0 0,-64 -64,0 0,-32.000006 96,0 0,128.000006 z"
+       style="fill:#000000;fill-opacity:1;stroke:#003296;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#0064c8;stroke-width:8;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 260.03534,68.298662 0,32.000008 -64,0 0,64 64,0 0,32 -96,0 0,-128.000008 z"
+       id="path3758"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+       x="144.77467"
+       y="340.04697"
+       id="text3768"
+       sodipodi:linespacing="125%"
+       transform="scale(1.3283085,0.75283717)"><tspan
+         sodipodi:role="line"
+         id="tspan3770"
+         x="144.77467"
+         y="340.04697"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Monospace;-inkscape-font-specification:Monospace">GAMES</tspan></text>
+  </g>
+</svg>

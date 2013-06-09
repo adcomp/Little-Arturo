@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HTML5 Canvas 2D Game dev.</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="David Art [aka] ADcomp" />
+	<meta name="description" content="HTML5 Canvas 2D Game Dev." />
+	<meta name="keywords" content="javascript js html5 canvas game dev" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<h1><small>Little</small> <i>A</i>rturo <b>{</b><span> HTML5 Canvas 2d game dev. </span><b>}</b></h1>
+	
+<div id="game">
+	<div id="container">
+		<canvas id="canvas"></canvas>
+		<div id="control">
+			<div id="menu">
+				<div id="play">
+					<div class="button">
+						<a href="#" onclick="game.play()">Play</a>
+					</div>
+				</div>
+			</div>
+			<div id="score">
+			</div>
+		</div>
+	</div>
+	<h3>Move: Arrow Keys, Jump/DoubleJump: X, Shoot: C, </h3>
+</div>
+
+
+<div id="preload">
+	<!-- images -->
+	<img id="img_bg" src="images/bg.png" />
+	<img id="img_map" src="images/map.png" />
+	<img id="img_player" src="images/player.png" />
+	<img id="img_enemy" src="images/enemy.png" />
+	<img id="img_jumper" src="images/jumper.png" />
+
+	<!-- audio -->
+	<audio id="audio_song" src="audio/song_2.ogg" type="audio/ogg" preload="auto" loop></audio>
+	<audio id="audio_energy" src="audio/energy.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_checkpoint" src="audio/checkpoint.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_shoot" src="audio/shoot.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_hit" src="audio/hit.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_gameover" src="audio/gameover.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_jump" src="audio/jump.ogg" type="audio/ogg" preload="auto"></audio>
+</div>
+
+<!-- javascript -->
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/game.js"></script>
+<script type="text/javascript" src="js/maps.js"></script>
+<script type="text/javascript" src="js/game_mod.js"></script>
+<script type="text/javascript" src="js/character.js"></script>
+
+
+</body>
+</html>

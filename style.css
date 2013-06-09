@@ -1,0 +1,77 @@
+
+body { 
+	text-align: center; 
+	background: black; 
+	margin: 0; 
+	padding: 0; 
+	color: white;
+}
+
+div {
+	margin: 0;
+	padding: 0;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	/*3D transform */
+	-webkit-transform: scale3d(1, 1, 1);
+	-o-user-select: none;
+	user-select: none;
+}
+
+h1 { font-size: 24px; margin: 8px; padding-top: 16px; padding-bottom: 16px;}
+h1 span { font-family: Helvetica; font-size: 10px; color: #999; vertical-align: middle;}
+h1 small { font-family: monospace; font-size: 16px; color: #eee; }
+h1 b { color: skyblue; }
+h1 i { color: orange; }
+h2 { font-size: 10px; margin: 8px; padding: 0; color: #999;}
+h3 { font-family: monospace; font-size: 10px; margin: 8px; padding: 0; color: #999;}
+
+#game { margin: 0; padding: 0;}
+
+#container { 
+	position: relative; 
+	margin: 0 auto;  padding: 0; 
+	width: 480px; height: 320px; 
+	/*width: 960px; height: 640px; */
+	border: 1px solid #555;
+}
+#canvas { 
+	opacity: 1; 
+	margin: 0; padding: 0;
+	width: 100%; height: 100%; 
+	z-index:1;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#control { opacity: 1; 
+	text-align: center;
+	margin: 0; padding: 0;
+	background: url('images/bg_control.png');
+	background-size: 100% 100%;
+	position: absolute;
+	color: white;
+	z-index:2; 
+	width: 100%; height: 100%; 
+	top: 0;
+	left: 0;
+}
+
+#control a { color: #eee; font-family: monospace; font-size: 32px; 
+	padding: 4px 32px;
+	border: 2px solid skyblue; 
+	border-radius: 8px; 
+	-moz-border-radius: 8px; 
+	-webkit-border-radius: 8px; 
+	text-decoration:none;
+}
+
+#control a:hover { border: 2px solid #39e; }
+
+#play { margin-top: 220px; }
+
+.button { height: 64px; }
+
+#preload { display: none; }
