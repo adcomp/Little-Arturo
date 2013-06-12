@@ -6,7 +6,7 @@ $(function() {
      game.init();
 
      // pause the game on blur
-     $(window).blur(function() { game.pause = true; });
+     // $(window).blur(function() { game.pause = true; });
 });
 
 var player;
@@ -18,12 +18,12 @@ var game = {
 	state: '',
 	level: 0,
 
-	tick: 0,
-	lastUpdateTimestamp: Date.now(),
-	fps: 0,
+	frames: 0,
+	lastUpdate: Date.now(),
+	fps: 60,
 
 	// sound fx
-	mute: false,
+	mute: true,
 
 	enemies: [], energy: [], checkpoint: [], animation: [], mapData: [], bg_anim: [],
 
@@ -32,8 +32,6 @@ var game = {
 
 	// state key
 	keys: {
-		delay: 3,
-		tick: 0,
 		shift: false,
 		ctrl: false,
 		left: false,
@@ -68,28 +66,28 @@ game.init = function() {
 	player = new Character(0,0, 26, 28);
 	player.type = "player";
 	player.color = { hue: 222, saturation: 50, lightness: 80 };
-	// player.gravity = 1.3;
 	player.max_frame = 4;
+	player.collected = 0;
+	player.collectedMax = 0;
+	player.deaths = 0;
 
 	// Images
 	this.images = {
 		player: document.getElementById('img_player'),
 		enemy: document.getElementById('img_enemy'),
 		jumper: document.getElementById('img_jumper'),
-		bg: document.getElementById('img_bg'),
-		bg_parallax: document.getElementById('img_bg_parallax'),
 		map: document.getElementById('img_map')
 	}
 
 	// Audio
 	this.audio = {
 	 	song: document.getElementById('audio_song'),
-	 	energy: document.getElementById('audio_energy'),
+	 	collect: document.getElementById('audio_collect'),
 	 	checkpoint: document.getElementById('audio_checkpoint'),
 	 	shoot: document.getElementById('audio_shoot'),
 	 	hit: document.getElementById('audio_hit'),
 	 	jump: document.getElementById('audio_jump'),
-	 	gameover: document.getElementById('audio_gameover')
+	 	death: document.getElementById('audio_death')
 	};
 
 	// save context
@@ -101,90 +99,143 @@ game.init = function() {
 }
 
 game.play = function() {
-	$('#control').fadeTo('fast', 0, function() {
-		$('#control').hide();
-		$('#canvas').css({cursor: "none"});
-		game.run();
-	});
+
+	game.run();
+
+	$('#control').fadeTo('slow', 0, 
+		function() {
+			$('#mainscreen').hide();
+			$('#control').css({cursor: "none"});
+		}
+	);
+
+}
+
+game.nextLevel = function() {
+
+	console.log('nextLevel')
+
+	this.level++;
+	this.run();
+	$('#control').fadeTo('fast', 0);
+	$('#playerscore').hide();
 }
 
 game.run = function() {
 
 	this.loadMap(this.level);
+	this.state = 'run'
+	this.levelStartTime = Date.now();
 	this.loop();
 	if (!game.mute) {
-		// game.audio.song.play();
+		game.audio.song.play();
 	}
 }
 
 game.loop = function() {
 
-	if (this.state != 'ready') { 
-		return;
-	}
+	if (this.state == 'stop') return;
+
+	if (!this.pause) requestAnimFrame(function() { game.loop(); });
 
 	var that = this;
 	var now = Date.now();
-	var delta = now - this.lastUpdateTimestamp;
-	if (delta > 60) delta = 60;
-	this.lastUpdateTimestamp = now;
-	this.fps = (this.fps + 1000 / delta)/2 >>0;
-
-	this.update(delta);
-	this.draw();
+	var delta = now - this.lastUpdate;
 	
-	if (!this.pause) requestAnimFrame(function() { game.loop(); });
+	if (delta > 60) delta = 60;
+	this.lastUpdate = now;
+
+	if (!this.frames%6) {
+		this.fps = (this.fps + 1000 / delta)/2 >>0;
+		console.log('tictac')
+	}
+	
+	this.update(delta);
+	this.render();
+
+	this.frames++;
+	if (this.frames >= 60) this.frames = 0;
 }
 
 
 game.player_is_dead = function() {
+
+	player.deaths++;
 	player.died();
+
 	if (!game.mute) {
-		game.audio.gameover.play();
+		game.audio.death.play();
 	}
+
 	this.restartMap();
 	setTimeout( function() { player.isAlive = true; }, 1000);
-	// setTimeout( function() { game.restartMap(); }, 1000);
+}
+
+game.levelComplete = function() {
+
+	this.log('level complete')
+
+	var now = Date.now();
+	var time = (now - this.levelStartTime) / 1000 >> 0;
+
+	game.state = 'stop';
+	game.audio.song.pause();
+
+	$('#time').html(time);
+	$('#collected').html(player.collected);
+	$('#collectedMax').html(player.collectedMax);
+	$('#deaths').html(player.deaths);
+
+	$('#playerscore').show();
+	$('#control').fadeTo('slow', 1);
 }
 
 game.update = function(delta) {
 
 	var that = this;
 
-	this.userInput();
+	if (this.state == 'levelcomplete') {
 
-	if (player.isAlive) {
-		for (var enemy=this.enemies.length-1; enemy>=0; enemy--) {
-			if (this.checkCollision(player, this.enemies[enemy])) {
-				this.player_is_dead();
-				break;
+		this.levelComplete();
+		return;
+	}
+
+	if (this.state == "run") {
+
+		this.userInput();
+
+		if (player.isAlive) {
+			for (var enemy=this.enemies.length-1; enemy>=0; enemy--) {
+				if (this.checkCollision(player, this.enemies[enemy])) {
+					this.player_is_dead();
+					break;
+				}
+			}
+		}
+
+		player.update(delta);
+		camera.update();
+
+		var game_obj = [ this.clouds, player.bullets, this.enemies, this.energy, this.checkpoint, this.animation, this.bg_anim ];
+
+		var ln = game_obj.length;
+		for (var i= 0; i<ln; i++) {
+
+			var ln_2 = game_obj[i].length-1;
+			for (var j=ln_2; j>=0; j--) {
+
+				if (game_obj[i][j].destroy) {
+					game_obj[i].remove(j);
+				}
+				else {
+					game_obj[i][j].update(delta);
+				}
 			}
 		}
 	}
-
-	player.update(delta);
-	camera.update();
-
-	var game_obj = [ this.clouds, player.bullets, this.enemies, this.energy, this.checkpoint, this.animation, this.bg_anim ];
-
-	var ln = game_obj.length;
-	for (var i= 0; i<ln; i++) {
-
-		var ln_2 = game_obj[i].length-1;
-		for (var j=ln_2; j>=0; j--) {
-
-			if (game_obj[i][j].destroy) {
-				game_obj[i].remove(j);
-			}
-			else {
-				game_obj[i][j].update(delta);
-			}
-		}
-	}
-
 }
 
-game.draw = function() {
+game.render = function() {
 
 	if (this.pause) {
 		this.ctx.fillStyle = 'rgba(0,0,0,.8)';
@@ -199,7 +250,7 @@ game.draw = function() {
 	this.ctx.clearRect(0,0, game.width, game.height);
 
 	// draw bg
-	this.ctx.drawImage(this.images.bg, 0, 0, this.width, this.height, 0, 0, this.width, this.height);
+	// this.ctx.drawImage(this.images.bg, 0, 0, this.width, this.height, 0, 0, this.width, this.height);
 
 
 	// clouds
@@ -279,15 +330,12 @@ game.restartMap = function() {
 	// player.isAlive = true;
 }
 
-game.animateLevelComplete = function() {
-
-	this.state = 'stop';
+game.nextMap = function() {
 
 	// increase level
 	this.level++;
 
 	if (this.level < game.map.length) {
-		// run new level
 		this.loadMap(this.level);
 	}
 	else {
@@ -303,6 +351,9 @@ game.loadMap = function(level) {
 	this.log('loading map ..');
 
 	// reset game 'object'
+	player.collected = 0;
+	player.collectedMax = 0;
+	player.deaths = 0;
 	player.bulllets = [];
 	this.enemies = [];
 	this.mapData = [];
@@ -334,7 +385,9 @@ game.loadMap = function(level) {
 			else if (tile_val == 2) { // level end
 
 				this.mapData[line][row] = 0;
-				var lvl_end = new CheckPoint(x, y);
+				var lvl_end = new CheckPoint(x + 24, y + 30);
+				lvl_end.width = 8;
+				lvl_end.height = 2;
 				lvl_end.last = true;
 				this.checkpoint.push(lvl_end);
 			}
@@ -375,6 +428,7 @@ game.loadMap = function(level) {
 
 				this.mapData[line][row] = 0;
 				this.energy.push(new Energy(x, y - 16));
+				player.collectedMax++;
 			}
 
 			else if (tile_val == 3) { // Check Point
@@ -391,7 +445,6 @@ game.loadMap = function(level) {
 	}
 
 	this.renderMap(level);
-	this.state = 'ready';
 }
 
 
@@ -507,16 +560,21 @@ game.keyDownUp = function(e, that, state) {
 	}
 
 	// pause
-	if (e.keyCode == 80 && state) {
-		this.log('Pause = ' + that.pause)
+	if (e.keyCode == 80 && state) {	// p
+		that.log('Pause = ' + that.pause)
 		that.pause = !that.pause;
 		if (!that.pause) { that.loop(); }
 	}
 
 	// mute
-	if (e.keyCode == 77 && state) {
-		this.log('Mute = ' + that.mute)
+	if (e.keyCode == 77 && state) {	// m
+		that.log('Mute = ' + that.mute)
 		that.mute = !that.mute;
+	}
+
+	// nexT level
+	if (e.keyCode == 78 && state && that.state != 'run') {	// n
+		that.nextLevel();
 	}
 
 	// game.debug

@@ -15,17 +15,49 @@
 	
 <div id="game">
 	<div id="container">
+
 		<canvas id="canvas"></canvas>
+
 		<div id="control">
-			<div id="menu">
-				<div id="play">
-					<div class="button">
+
+			<div id="mainscreen">
+					<div id="play" class="button">
 						<a href="#" onclick="game.play()">Play</a>
 					</div>
+			</div>
+
+			<div id="playerscore">
+				<h1>Level Complete</h1>
+				<div class="inline">
+					<ul>
+						<li>Time</li>
+						<li><span id="time" class="score">0</span><small>s</small></li>
+					</ul>
 				</div>
+				<div class="inline">
+					<ul>
+						<li>Collected</li>
+						<li><span id="collected" class="score">0</span> / <span id="collectedMax" class="score">0</span></li>
+					</ul>
+				</div>
+				<div class="inline">
+					<ul>
+						<li>deaths</li>
+						<li><span id="deaths" class="score">0</span></li>
+
+					</ul>
+				</div>
+
+
+				<div id="nextLevel" class="button">
+					<a href="#" onclick="game.nextLevel()"><u>N</u>ext Level</a>
+				</div>
+
 			</div>
-			<div id="score">
+
+			<div id="msg">
 			</div>
+
 		</div>
 	</div>
 	<h3>Move: Arrow Keys, Jump/DoubleJump: X, Shoot: C, </h3>
@@ -34,7 +66,6 @@
 
 <div id="preload">
 	<!-- images -->
-	<img id="img_bg" src="images/bg.png" />
 	<img id="img_map" src="images/map.png" />
 	<img id="img_player" src="images/player.png" />
 	<img id="img_enemy" src="images/enemy.png" />
@@ -42,11 +73,11 @@
 
 	<!-- audio -->
 	<audio id="audio_song" src="audio/song_2.ogg" type="audio/ogg" preload="auto" loop></audio>
-	<audio id="audio_energy" src="audio/energy.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_collect" src="audio/collect.ogg" type="audio/ogg" preload="auto"></audio>
 	<audio id="audio_checkpoint" src="audio/checkpoint.ogg" type="audio/ogg" preload="auto"></audio>
 	<audio id="audio_shoot" src="audio/shoot.ogg" type="audio/ogg" preload="auto"></audio>
 	<audio id="audio_hit" src="audio/hit.ogg" type="audio/ogg" preload="auto"></audio>
-	<audio id="audio_gameover" src="audio/gameover.ogg" type="audio/ogg" preload="auto"></audio>
+	<audio id="audio_death" src="audio/death.ogg" type="audio/ogg" preload="auto"></audio>
 	<audio id="audio_jump" src="audio/jump.ogg" type="audio/ogg" preload="auto"></audio>
 </div>
 

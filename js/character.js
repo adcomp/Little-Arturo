@@ -24,7 +24,7 @@ var Character = function (x, y, width, height, color) {
 	this.vy =  0;
 	this.x_accel = 8;
 	this.y_accel = 12;
-	this.vx_max = 180;
+	this.vx_max = 130;
 	this.dir =  1;
 	this.rotation = 0;
 	this.friction = .8;
@@ -45,7 +45,9 @@ Character.prototype.fire = function() {
 
 	var bullet = new Bullet(this.x + this.width/2 , this.y + this.height/2);
 	bullet.vx *= this.dir;
+
 	this.bullets.push(bullet);
+
 	if (!game.mute) { 
 		game.audio.shoot.pause();
 		game.audio.shoot.currentTime=0; 
@@ -74,8 +76,6 @@ Character.prototype.right = function() {
 Character.prototype.attack = function() {}
 
 Character.prototype.jump = function() {
-
-	game.log('jump ..');
 
 	if ((this.canJump() || this.doubleJump) && !this.jumpFlag) {
 
@@ -107,11 +107,12 @@ Character.prototype.jump = function() {
 
 Character.prototype.died = function() {
 
+	this.isAlive = false;
+
 	// animation
 	for (var i = 32; i >= 0; i--) {
 		game.animation.push(new Particle(this.x, this.y + this.height/2, 1 + Math.random()*8, this.color, .95, 40));
-	};
-	this.isAlive = false;
+	}
 }
 
 Character.prototype.draw = function() {
@@ -208,18 +209,13 @@ Character.prototype.update = function(delta) {
 
 	if (this.isMoving) {
 
-		if (this.type == 'player') {
-			this.frame = this.frame + .1;
+		if (this.type == 'player' || this.type == 'enemy') {
+			this.frame += delta/144;
 			if (this.frame > this.max_frame) { 
 					this.frame = 1;
 			}
 		}
-		else if (this.type == 'enemy') {
-			this.frame = this.frame + .065;
-			if (this.frame >= this.max_frame) { 
-					this.frame = 1;
-			}
-		}
+
 	}
 	else {
 		this.frame = 0;

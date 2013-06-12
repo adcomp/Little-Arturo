@@ -87,7 +87,8 @@ CheckPoint.prototype.update = function() {
 
 		if (this.last) {
 
-			game.animateLevelComplete();
+			// game.levelComplete = true;
+			game.state = 'levelcomplete';
 		}
 		
 		else {
@@ -108,9 +109,13 @@ CheckPoint.prototype.update = function() {
 CheckPoint.prototype.draw = function() {
 
 	var x, y = 288;
+	var xx =  -camera.x + this.x;
+	var yy =  -camera.y + this.y;
 
 	if (this.last) {
 		x = 160;
+		xx -= 24;
+		yy -= 30
 	}
 
 	else if (this.active) {
@@ -120,8 +125,11 @@ CheckPoint.prototype.draw = function() {
 	else {
 		x = 96;	
 	}
-	game.ctx.drawImage(
-		game.images.map, x, y, 32, 32, -camera.x + this.x, -camera.y + this.y, 32, 32);
+
+	game.ctx.drawImage(game.images.map, x, y, 32, 32, xx, yy, 32, 32);
+
+	if (game.debug)
+		game.ctx.strokeRect(-camera.x + this.x, -camera.y + this.y, this.width, this.height);
 }
 
 
@@ -143,6 +151,8 @@ Energy.prototype.update = function(delta) {
 
 	if (game.checkCollision(player, this)) {
 
+		player.collected++;
+
 		for (var i = 8; i >= 0; i--) {
 			game.animation.push(new Particle(this.x + this.width/2 , this.y + this.height/2, 3+Math.random()*4, this.color, 1, 60));
 		};
@@ -150,9 +160,9 @@ Energy.prototype.update = function(delta) {
 		this.destroy = true;
 
 		if (!game.mute) { 
-			game.audio.energy.pause();
-			game.audio.energy.currentTime=0;
-			game.audio.energy.play();
+			game.audio.collect.pause();
+			game.audio.collect.currentTime=0;
+			game.audio.collect.play();
 		}
 	}
 	this.rotation += 3 * delta/1000;
@@ -257,7 +267,7 @@ var Cloud = function(x, y) {
 
 	this.x = x;
 	this.y = y;
-	this.vx = -10 - Math.random()*2;
+	this.vx = -8 ; // -5 - Math.random()*5;
 	this.width = 64;
 	this.height = 32;
 }
@@ -273,8 +283,8 @@ Cloud.prototype.update = function(delta) {
 
 Cloud.prototype.draw = function() {
 
-	y = -camera.y + this.y >> 0;
-	x = -camera.x + this.x >> 0;
+	y = -camera.y + this.y;
+	x = -camera.x + this.x;
 	
 	game.ctx.drawImage(
 		game.images.map, 

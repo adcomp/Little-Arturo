@@ -36,6 +36,7 @@ h3 { font-family: monospace; font-size: 10px; margin: 8px; padding: 0; color: #9
 	/*width: 960px; height: 640px; */
 	border: 1px solid #555;
 }
+
 #canvas { 
 	opacity: 1; 
 	margin: 0; padding: 0;
@@ -44,13 +45,14 @@ h3 { font-family: monospace; font-size: 10px; margin: 8px; padding: 0; color: #9
 	position: absolute;
 	top: 0;
 	left: 0;
+	background: url('images/bg_canvas.png');
 }
 
-#control { opacity: 1; 
+#control { 
+	opacity: 1; 
 	text-align: center;
 	margin: 0; padding: 0;
-	background: url('images/bg_control.png');
-	background-size: 100% 100%;
+	background: black;	
 	position: absolute;
 	color: white;
 	z-index:2; 
@@ -59,19 +61,55 @@ h3 { font-family: monospace; font-size: 10px; margin: 8px; padding: 0; color: #9
 	left: 0;
 }
 
-#control a { color: #eee; font-family: monospace; font-size: 32px; 
+#control a { 
+	color: #eee; 
+	font-family: monospace; 
+	font-size: 32px; 
 	padding: 4px 32px;
-	border: 2px solid skyblue; 
+	border: 2px solid orange; 
 	border-radius: 8px; 
 	-moz-border-radius: 8px; 
 	-webkit-border-radius: 8px; 
 	text-decoration:none;
 }
 
-#control a:hover { border: 2px solid #39e; }
+#control a:hover { border: 2px solid yellow; }
 
-#play { margin-top: 220px; }
+#mainscreen, #playerscore, #msg {
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+#mainscreen {
+	display: block;
+	background: url('images/bg_mainscreen.png');
+	background-size: 100% 100%;
+}
+
+#playerscore {
+	display: block;
+}
+
+#playerscore ul {
+	list-style-type: none;
+}
+
+#playerscore li {
+	padding-top: 8px;
+	font-family: monospace;
+	color: #eee;
+	font-size: 24px;
+}
+
+.score { color: orange; font-size: 24px; }
+
+#play { padding-top: 220px; }
+
+#nextLevel { padding-top: 30px; }
 
 .button { height: 64px; }
+
+.inline { display: inline-block; }
 
 #preload { display: none; }
